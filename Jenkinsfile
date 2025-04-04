@@ -32,10 +32,12 @@ pipeline {
         stage('docker push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh 'docker login -u $elessanderunc -p $lc57910p'
-                    sh 'docker tag elessanderunc/nestjs-server:1.0'
-                    sh 'docker push elessanderunc/nestjs-server:1.0'
-                    sh 'docker logout'
+                    sh '''
+                        docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+                        docker tag nestjs-server:1.0 $DOCKERHUB_USERNAME/nestjs-server:1.0
+                        docker push $DOCKERHUB_USERNAME/nestjs-server:1.0
+                        docker logout
+                    '''
                 }
             }
         }
