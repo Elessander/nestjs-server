@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        %PATH%;C:\Program Files\nodejs\node_modules\npm\bin
+    }
     stages {
         stage('checkout') {
             steps {
@@ -29,9 +32,9 @@ pipeline {
         stage('docker push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable: 'DOCKERHUB_USERNAME')]) {
-                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-                    sh 'docker tag nestjs-server:1.0 {IMAGEM_DOCKER}'
-                    sh 'docker push {IMAGEM_DOCKER}'
+                    sh 'docker login -u $elessanderunc -p $lc57910p'
+                    sh 'docker tag elessanderunc/nestjs-server:1.0'
+                    sh 'docker push elessanderunc/nestjs-server:1.0'
                     sh 'docker logout'
                 }
             }
