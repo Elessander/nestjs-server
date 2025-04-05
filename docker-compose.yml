@@ -1,13 +1,13 @@
 version: '3'
 services:
- nestjs:
-   image: elessanderunc/nestjs-server:1.0
-   restart: always
-   ports:
+  nestjs:
+    image: elessanderunc/nestjs-server:1.0
+    restart: always
+    ports:
      - "3000:3000"
-   pull_policy: always
+    pull_policy: always
 
-   watchtower:
+  watchtower:
     image: containrrr/watchtower
     container_name: watchtower
     volumes:
