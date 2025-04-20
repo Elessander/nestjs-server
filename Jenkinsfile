@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
         PATH = "C:\\Program Files\\nodejs\\;${env.PATH}"
+        DOCKER_IMAGE = "elessanderunc/nestjs-server"
+        TAG = "1.0"
     }
     stages {
         stage('checkout') {
