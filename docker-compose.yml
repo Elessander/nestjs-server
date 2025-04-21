@@ -4,24 +4,31 @@ services:
     image: elessanderunc/nextjs-frontend:1.0 
     ports: "3001:3000"
     environment:
-      NEXT_PUBLIC_BACKEND_URL: http://nestjs:3000
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:3001
       depends_on:
       - nestjs
     restart: always
 
   nestjs:
-    image: elessanderunc/nestjs-server:1.0
+    image: elessanderunc/nextjs-server:1.0
     restart: always
     ports:
-     - "3000:3000"
+      - "3000:3000"
+    networks:
+      - mysql-net
+    environment:
+      - DATABASE_URL=mysql://root:root@mysql-master:3306/to_do_list
     pull_policy: always
-    #env_file:
-    #  - .env
 
   watchtower:
     image: containrrr/watchtower
-    container_name: watchtower
+    container_name: watchtower_nestjs-server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --cleanup --interval 60
     restart: always
+
+networks:
+  mysql-net:
+    external: true
+    
