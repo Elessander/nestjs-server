@@ -25,12 +25,12 @@ export class ToDoController {
 
   @Get()
   getTodos(): string {
-    return 'Lista de To-Dos';
+    return 'Lista de ToDos';
   }
   
   @Get('list')
   getListTasks(): string {
-    return 'Lista de To-Dos';
+    return 'Lista de ToDos';
   }
 
   @Post()
