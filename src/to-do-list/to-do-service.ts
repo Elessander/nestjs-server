@@ -1,21 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateToDo } from '../dto/create-to-do';
 
 @Injectable()
-export class ToDoService {
-  constructor(private readonly prisma: PrismaService) {}
+export class TodosService {
+  constructor(private prisma: PrismaService) {}
 
-  async addToDo(title: string) {
-    const task = await this.prisma.toDo.create({
-      data: {
-        title,
-      },
-    });
-
-    return { message: 'To-do item added', task };
+  async findAll() {
+    return this.prisma.toDo.findMany({ orderBy: { createdAt: 'desc' } });
   }
 
-  getTodos(): string {
-    return 'To do List';
+  async create(dto: CreateToDo) {
+    return this.prisma.toDo.create({ data: { title: dto.title } });
+  }
+
+  async remove(id: number) {
+    const todo = await this.prisma.toDo.delete({ where: { id } });
+    if (!todo) throw new NotFoundException('Task not found');
+    return todo;
   }
 }
