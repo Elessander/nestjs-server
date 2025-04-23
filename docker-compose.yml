@@ -11,6 +11,18 @@ services:
       - DATABASE_URL=mysql://root:root@mysql-master:3306/to_do_list
     pull_policy: always
 
+  frontend:
+    image: elessanderunc/nextjs-frontend:1.0
+    restart: always
+    ports:
+      - "3001:3000"       
+    networks:
+      - mysql-net
+    depends_on:
+      - nestjs
+    environment:
+      - NEXT_PUBLIC_API_URL=http://nestjs:3000 
+
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower_nestjs-server
@@ -22,4 +34,3 @@ services:
 networks:
   mysql-net:
     external: true
-    
