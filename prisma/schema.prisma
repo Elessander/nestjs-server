@@ -13,15 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ToDo {
+model todos {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
-  @@map("todos")
 }
 
-model ToDos {
+model Teste {
   id        Int      @id @default(autoincrement())
-  title     String
+  nome     String
   createdAt DateTime @default(now())
 }
