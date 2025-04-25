@@ -19,3 +19,9 @@ model ToDo {
   createdAt DateTime @default(now())
   @@map("todos")
 }
+
+model ToDos {
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+}
