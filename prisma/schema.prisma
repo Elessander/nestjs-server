@@ -17,10 +17,12 @@ model todos {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
+  @@map("todos")
 }
 
-model Teste {
+model teste {
   id        Int      @id @default(autoincrement())
-  nome     String
+  title     String
   createdAt DateTime @default(now())
+    @@map("teste")
 }
